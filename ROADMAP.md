@@ -4,6 +4,27 @@
 
 ---
 
+## Comandos Git (Push para ambas contas)
+
+```bash
+# Push rápido (alias configurado)
+git pushall
+
+# Ou manualmente
+git push origin main && git push lluisa main
+
+# Commit + Push
+git add .
+git commit -m "feat: descrição"
+git pushall
+```
+
+**Repositórios:**
+- `origin` → https://github.com/luisacaetano/bikefit-pro
+- `lluisa` → https://github.com/lluisacaetano/bikefit-pro
+
+---
+
 ## Visão Geral das Fases
 
 ```
