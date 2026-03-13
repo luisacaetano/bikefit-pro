@@ -1,0 +1,46 @@
+# ===========================================
+# BikeFit AI - Dependências do Projeto
+# ===========================================
+# Instale com: pip install -r requirements.txt
+# Python 3.9+
+# ===========================================
+
+# Processamento de Vídeo e Imagem
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# Estimativa de Pose (Core do projeto)
+mediapipe>=0.10.0
+
+# Computação Numérica
+numpy>=1.24.0
+
+# Análise de Dados
+pandas>=2.0.0
+
+# Visualização
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Interface Web
+streamlit>=1.28.0
+
+# Geração de Relatórios
+reportlab>=4.0.0
+fpdf2>=2.7.0
+
+# Utilitários
+tqdm>=4.65.0
+pyyaml>=6.0
+
+# Desenvolvimento (opcional)
+jupyter>=1.0.0
+ipykernel>=6.0.0
+
+# Testes (opcional)
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# Linting (opcional)
+flake8>=6.0.0
+black>=23.0.0
