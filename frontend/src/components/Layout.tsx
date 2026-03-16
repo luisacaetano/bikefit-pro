@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { Home, Users, Camera, LogOut } from 'lucide-react'
 
 const navItems = [
@@ -9,17 +9,26 @@ const navItems = [
 
 export default function Layout() {
   const location = useLocation()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    navigate('/login')
+  }
+
+  const user = JSON.parse(localStorage.getItem('user') || '{}')
 
   return (
     <div className="min-h-screen flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-primary-800 text-white">
+      <aside className="w-64 bg-primary-800 text-white flex flex-col">
         <div className="p-6">
           <h1 className="text-2xl font-bold">BikeFit Pro</h1>
           <p className="text-primary-200 text-sm">Análise Postural</p>
         </div>
 
-        <nav className="mt-6">
+        <nav className="mt-6 flex-1">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path
             return (
@@ -39,8 +48,16 @@ export default function Layout() {
           })}
         </nav>
 
-        <div className="absolute bottom-0 w-64 p-4">
-          <button className="flex items-center gap-2 text-primary-200 hover:text-white transition-colors">
+        <div className="p-4 border-t border-primary-700">
+          {user.username && (
+            <p className="text-primary-200 text-sm mb-2">
+              Olá, {user.username}
+            </p>
+          )}
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-primary-200 hover:text-white transition-colors w-full"
+          >
             <LogOut size={20} />
             <span>Sair</span>
           </button>
@@ -48,7 +65,7 @@ export default function Layout() {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-8 bg-gray-50 overflow-auto">
         <Outlet />
       </main>
     </div>

@@ -95,6 +95,43 @@ class PDFGenerator:
         elements.append(t)
         elements.append(Spacer(1, 20))
 
+        # Imagens Antes/Depois
+        foto_antes = dados.get("foto_antes_path")
+        foto_depois = dados.get("foto_depois_path")
+
+        if foto_antes or foto_depois:
+            elements.append(Paragraph("Análise Visual", self.styles['SectionTitle']))
+
+            images_row = []
+            if foto_antes and os.path.exists(foto_antes):
+                img_antes = Image(foto_antes, width=7*cm, height=5*cm)
+                images_row.append([Paragraph("<b>ANTES</b>", self.styles['Normal']), img_antes])
+
+            if foto_depois and os.path.exists(foto_depois):
+                img_depois = Image(foto_depois, width=7*cm, height=5*cm)
+                images_row.append([Paragraph("<b>DEPOIS</b>", self.styles['Normal']), img_depois])
+
+            if images_row:
+                # Criar tabela lado a lado
+                if len(images_row) == 2:
+                    img_table = Table([
+                        [images_row[0][0], images_row[1][0]],
+                        [images_row[0][1], images_row[1][1]]
+                    ], colWidths=[8*cm, 8*cm])
+                else:
+                    img_table = Table([
+                        [images_row[0][0]],
+                        [images_row[0][1]]
+                    ], colWidths=[8*cm])
+
+                img_table.setStyle(TableStyle([
+                    ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                    ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                    ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
+                ]))
+                elements.append(img_table)
+                elements.append(Spacer(1, 15))
+
         # Ângulos Antes
         if "angulos_antes" in dados:
             elements.append(Paragraph("Ângulos - Antes do Ajuste", self.styles['SectionTitle']))

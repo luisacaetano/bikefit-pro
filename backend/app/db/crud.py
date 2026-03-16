@@ -89,9 +89,12 @@ async def get_sessao(db: AsyncSession, sessao_id: int) -> Optional[Sessao]:
     return result.scalar_one_or_none()
 
 
-async def create_sessao(db: AsyncSession, sessao: SessaoCreate) -> Sessao:
+async def create_sessao(db: AsyncSession, sessao: SessaoCreate, foto_antes_path: str = None) -> Sessao:
     """Cria uma nova sessão"""
-    db_sessao = Sessao(**sessao.model_dump())
+    data = sessao.model_dump(exclude={"foto_antes_base64"})
+    if foto_antes_path:
+        data["foto_antes_path"] = foto_antes_path
+    db_sessao = Sessao(**data)
     db.add(db_sessao)
     await db.commit()
     await db.refresh(db_sessao)
@@ -102,7 +105,8 @@ async def finalizar_sessao(
     db: AsyncSession,
     sessao_id: int,
     angulos_depois: dict,
-    ajustes: dict
+    ajustes: dict,
+    foto_depois_path: str = None
 ) -> Optional[Sessao]:
     """Finaliza uma sessão com os dados pós-ajuste"""
     db_sessao = await get_sessao(db, sessao_id)
@@ -113,6 +117,8 @@ async def finalizar_sessao(
     db_sessao.ajustes = ajustes
     db_sessao.status = "finalizada"
     db_sessao.finalizado_em = datetime.utcnow()
+    if foto_depois_path:
+        db_sessao.foto_depois_path = foto_depois_path
 
     await db.commit()
     await db.refresh(db_sessao)

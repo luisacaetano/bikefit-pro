@@ -15,6 +15,7 @@ class SessaoBase(BaseModel):
 class SessaoCreate(SessaoBase):
     """Schema para criar sessão"""
     angulos_antes: Optional[Dict[str, Any]] = None
+    foto_antes_base64: Optional[str] = None  # Base64 da imagem
 
 
 class SessaoUpdate(BaseModel):
