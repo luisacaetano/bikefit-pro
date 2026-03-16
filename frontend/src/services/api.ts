@@ -62,8 +62,39 @@ export default {
     return data
   },
 
-  createSessao: async (sessao: { paciente_id: number; observacoes?: string }) => {
+  getSessao: async (sessaoId: number) => {
+    const { data } = await api.get(`/sessoes/${sessaoId}`)
+    return data
+  },
+
+  createSessao: async (sessao: {
+    paciente_id: number
+    angulos_antes?: Record<string, number>
+    foto_antes_base64?: string
+    observacoes?: string
+  }) => {
     const { data } = await api.post('/sessoes/', sessao)
+    return data
+  },
+
+  finalizarSessao: async (
+    sessaoId: number,
+    angulos_depois: Record<string, number>,
+    ajustes: Record<string, string>,
+    foto_depois_base64?: string
+  ) => {
+    const { data } = await api.put(`/sessoes/${sessaoId}/finalizar`, {
+      angulos_depois,
+      ajustes,
+      foto_depois_base64
+    })
+    return data
+  },
+
+  downloadPdfSessao: async (sessaoId: number): Promise<Blob> => {
+    const { data } = await api.get(`/sessoes/${sessaoId}/pdf`, {
+      responseType: 'blob'
+    })
     return data
   },
 
