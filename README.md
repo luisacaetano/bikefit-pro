@@ -175,14 +175,10 @@ Este projeto tem potencial para se tornar uma ferramenta de apoio para especiali
 
 **Luisa Caetano**
 - Curso: Ciência da Computação
-- Instituição: Unifor
-- Orientador: [Nome do Orientador]
+- Instituição: IFMG - Campus Formiga
+- Orientadores: Fernando Paim e Andrei Pernambuco
 - Ano: 2026
 
-## Colaboradores
-
-- Professor de Fisioterapia (Unifor) - Consultoria técnica
-- Especialista em Bike Fit - Fornecimento de dados e validação
 
 ## Licença
 
